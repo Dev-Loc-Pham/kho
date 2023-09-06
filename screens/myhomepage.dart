@@ -29,7 +29,7 @@ class _MyHomePageState extends State<MyHomePage> {
             leading: CircleAvatar(
               backgroundColor: theme.primaryColor,
             ),
-            title: Text('Item ${index}'),
+            title: Text('Item ${index + 1}'),
             trailing: Container(
               width: 60,
               height: 50,
