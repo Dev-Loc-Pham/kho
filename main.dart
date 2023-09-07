@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_layout/screens/favourite.dart';
 import 'package:flutter_layout/screens/myhomepage.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_layout/service/appstate.dart';
+import 'package:flutter_layout/data/item_data.dart';
+import 'package:flutter_layout/models/item.dart' as superitem;
 
 void main() {
   runApp(const MyApp());
@@ -58,8 +59,16 @@ class _MyAppState extends State<MyApp> {
 }
 
 class AppSate extends ChangeNotifier {
-  var favourite = [];
-  void add_ele(int e) {
+  var item_list = Item_List;
+
+  void marked(int id) {
+    var index = item_list.indexWhere((e) => e.id == id);
+    item_list[index].mark = !item_list[index].mark;
+    notifyListeners();
+  }
+
+  List<superitem.Item> favourite = [];
+  void add_ele(e) {
     if (favourite.contains(e)) {
       print('it already have');
     } else {
@@ -68,8 +77,9 @@ class AppSate extends ChangeNotifier {
     }
   }
 
-  void remove_ele(int e) {
+  void remove_ele(e) {
     favourite.remove(e);
+
     notifyListeners();
   }
 }

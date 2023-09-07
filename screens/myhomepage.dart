@@ -10,41 +10,38 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  List catarory = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
   @override
   Widget build(BuildContext context) {
     var appstate = context.watch<AppSate>();
     var pair = appstate.favourite;
+    var Item_list = appstate.item_list;
     var theme = Theme.of(context);
 
     return Container(
         child: ListView.builder(
       shrinkWrap: true,
-      itemCount: catarory.length,
+      itemCount: Item_list.length,
       itemBuilder: (context, index) {
-        int value = catarory[index];
         return Container(
           child: ListTile(
             onTap: () {},
             leading: CircleAvatar(
-              backgroundColor: theme.primaryColor,
+              backgroundColor: Item_list[index].color,
             ),
-            title: Text('Item ${index + 1}'),
+            title: Text(Item_list[index].title),
             trailing: Container(
               width: 60,
               height: 50,
               child: ElevatedButton.icon(
                 onPressed: () {
-                  appstate.add_ele(value);
-                  if (catarory[index] == 0) {
-                    catarory[index] = 1;
-                  } else {
-                    catarory[index] = 0;
-                  }
+                  appstate.add_ele(Item_list[index]);
+                  appstate.marked(Item_list[index].id);
                   setState(() {});
                 },
                 icon: Icon(
-                  value == 0 ? Icons.favorite : Icons.favorite_border,
+                  Item_list[index].mark
+                      ? Icons.favorite
+                      : Icons.favorite_border,
                   color: theme.primaryColor,
                 ),
                 label: Text(''),
